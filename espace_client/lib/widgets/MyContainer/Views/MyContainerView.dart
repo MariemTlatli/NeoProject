@@ -1,8 +1,9 @@
 import 'package:espace_client/utils/Drawer.dart';
 import 'package:espace_client/utils/ErrorPage.dart';
 import 'package:espace_client/widgets/AcceuilPage/Views/AcceuilView.dart';
-import 'package:espace_client/widgets/MyContainer/Models/PageInfos.dart';
+
 import 'package:espace_client/widgets/MyContainer/Views/pageHeader.dart';
+import 'package:espace_client/widgets/MyContainer/provider/DrawerProvider.dart';
 import 'package:espace_client/widgets/QuittancePage/Views/quittancePage.dart';
 
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _MyConatinerViewState extends State<MyConatinerView> {
     final bool isMobile = (screenWidth <= 600 && screenHeight <= 700);
 
     return ChangeNotifierProvider(
-        create: (context) => PageInfos(),
+        create: (context) => DrawerProvider(),
         child: Scaffold(
           appBar: (isMobile) ? constants.myAppBar : null,
           drawer: (isMobile)
@@ -62,27 +63,29 @@ class _MyConatinerViewState extends State<MyConatinerView> {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: Consumer<PageInfos>(
-                          builder: (context, pageInfos, child) {
+                        child: Consumer<DrawerProvider>(
+                          builder: (context, drawerProvider, child) {
                             return PageHeader(
                               isMobile: isMobile,
                               visibilityRechercheBarre:
-                                  (pageInfos.GetSelectedItemIndex == 0)
+                                  (drawerProvider.GetSelectedItemIndex == 0)
                                       ? true
                                       : false,
-                              index: pageInfos.GetSelectedItemIndex,
+                              index: drawerProvider.GetSelectedItemIndex,
                               titre: "Acceuil",
                               sousTitre: constants.maListeTitres[
-                                  pageInfos.GetSelectedItemIndex],
+                                  drawerProvider.GetSelectedItemIndex],
                               visibleIconButton: true,
                               visibleButton:
-                                  (pageInfos.GetSelectedItemIndex == 1 ||
-                                          pageInfos.GetSelectedItemIndex == 6)
+                                  (drawerProvider.GetSelectedItemIndex == 1 ||
+                                          drawerProvider.GetSelectedItemIndex ==
+                                              6)
                                       ? true
                                       : false,
-                              textButton: (pageInfos.GetSelectedItemIndex == 1)
-                                  ? constants.maListeButtonsText[0]
-                                  : constants.maListeButtonsText[1],
+                              textButton:
+                                  (drawerProvider.GetSelectedItemIndex == 1)
+                                      ? constants.maListeButtonsText[0]
+                                      : constants.maListeButtonsText[1],
                               onPressed: () {},
                             );
                           },
@@ -90,9 +93,9 @@ class _MyConatinerViewState extends State<MyConatinerView> {
                       ),
                       Expanded(
                         flex: 8,
-                        child: Consumer<PageInfos>(
-                          builder: (context, pageInfos, child) {
-                            switch (pageInfos.GetSelectedItemIndex) {
+                        child: Consumer<DrawerProvider>(
+                          builder: (context, drawerProvider, child) {
+                            switch (drawerProvider.GetSelectedItemIndex) {
                               case 0:
                                 return AcceuilView();
                               case 1:

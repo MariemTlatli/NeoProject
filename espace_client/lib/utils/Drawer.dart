@@ -1,6 +1,7 @@
 import 'package:espace_client/Constants.dart';
-import 'package:espace_client/widgets/MyContainer/Models/PageInfos.dart';
+
 import 'package:espace_client/widgets/MyContainer/Views/MyContainerView.dart';
+import 'package:espace_client/widgets/MyContainer/provider/DrawerProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:espace_client/Constants.dart' as constants;
@@ -17,10 +18,10 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => PageInfos(),
+      create: (context) => DrawerProvider(),
       child: Drawer(
         backgroundColor: constants.defaultSecondryColor,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(20),
             topLeft: Radius.circular(20),
@@ -53,26 +54,26 @@ class _MyDrawerState extends State<MyDrawer> {
 
   Widget drawerItem(
       BuildContext context, String title, IconData icon, int index) {
-    final pageInfos = context.watch<PageInfos>();
+    final drawerProvider = context.watch<DrawerProvider>();
 
     return ListTile(
       selectedTileColor: defaultBackgroundColor,
       tileColor: defaultSecondryColor,
       leading: Icon(icon,
-          color: pageInfos.GetSelectedItemIndex == index
+          color: drawerProvider.GetSelectedItemIndex == index
               ? defaultSecondryColor
               : defaultBackgroundColor),
       title: Text(title,
           style: TextStyle(
-              color: pageInfos.GetSelectedItemIndex == index
+              color: drawerProvider.GetSelectedItemIndex == index
                   ? defaultSecondryColor
                   : defaultBackgroundColor,
               fontSize: 12,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.4)),
-      selected: pageInfos.GetSelectedItemIndex == index,
+      selected: drawerProvider.GetSelectedItemIndex == index,
       onTap: () {
-        pageInfos.setSelectedItemIndex(index);
+        drawerProvider.setSelectedItemIndex(index);
         if (index == 8) {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return MyConatinerView();

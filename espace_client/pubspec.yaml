@@ -37,6 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.6
   provider: ^6.1.2
 
+  another_flushbar: ^1.12.30
+
+  dartz: ^0.10.1
+  dio: ^5.5.0+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

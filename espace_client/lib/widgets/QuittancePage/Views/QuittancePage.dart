@@ -6,6 +6,7 @@ import 'package:espace_client/Constants.dart' as constants;
 import 'package:flutter/widgets.dart';
 
 class QuittancePage extends StatefulWidget {
+  
   final bool isMobile;
   int nbQuittance = constants.listeContratsMobile.length;
   QuittancePage({super.key, required this.isMobile});

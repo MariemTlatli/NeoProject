@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class PageInfos extends ChangeNotifier {
+class DrawerProvider extends ChangeNotifier {
   int _selectedItemIndex = 0;
 
   int get GetSelectedItemIndex {

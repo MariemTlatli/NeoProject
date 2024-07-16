@@ -8,6 +8,7 @@ var defaultBackgroundColor = Colors.white;
 var defaultPrimaryColor = Colors.blueAccent;
 var IconEmailColor = Colors.lightBlue;
 var ButtonColor = Colors.red;
+var greenColor = const Color.fromARGB(255, 42, 158, 102);
 Color MyGreyColor = const Color.fromARGB(255, 220, 219, 219);
 
 var defaultSecondryColor = Color(0xFF313042);

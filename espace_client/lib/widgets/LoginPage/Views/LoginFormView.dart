@@ -1,12 +1,20 @@
+import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:espace_client/Constants.dart' as constants;
 import 'package:espace_client/utils/CustomButton.dart';
+import 'package:espace_client/utils/CustomToast.dart';
 import 'package:espace_client/utils/Header.dart';
+import 'package:espace_client/widgets/LoginPage/Provider/UserProvider.dart';
+import 'package:espace_client/widgets/LoginPage/Service/LoginService.dart';
+import 'package:espace_client/widgets/LoginPage/core/Api/DioConsumer.dart';
+
 import 'package:espace_client/widgets/MyContainer/Views/MyContainerView.dart';
 
 import 'package:espace_client/widgets/LoginPage/Models/UserModel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:provider/provider.dart';
 
 class LoginFormView extends StatefulWidget {
@@ -18,7 +26,6 @@ class LoginFormView extends StatefulWidget {
 
 class _LoginFormViewState extends State<LoginFormView> {
   final _formKey = GlobalKey<FormState>(); // Create a GlobalKey for the Form
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -37,7 +44,7 @@ class _LoginFormViewState extends State<LoginFormView> {
               Form(
                 autovalidateMode: AutovalidateMode.always,
                 key: _formKey,
-                child: Consumer<UserModel>(builder: (context, user, child) {
+                child: Consumer<UserProvider>(builder: (context, user, child) {
                   return Column(
                     children: <Widget>[
                       Container(
@@ -142,52 +149,56 @@ class _LoginFormViewState extends State<LoginFormView> {
                         ),
                       ),
                       Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomButton(
-                            myPadding: 30.0,
-                            onPressed: () {
-                              if (user.isTextFieldMailVisible) {
-                                if (_formKey.currentState!.validate()) {
-                                  user.setVisibleMail(false);
-                                  user.setVisiblePass(true);
-                                  user.setVisibleConfirmPass(false);
+                        padding: const EdgeInsets.all(8.0),
+                        child: (!user.isLoading)
+                            ? CustomButton(
+                                myPadding: 30.0,
+                                onPressed: () {
+                                  if (user.isTextFieldMailVisible) {
+                                    if (_formKey.currentState!.validate()) {
+                                      user.setVisibleMail(false);
+                                      user.setVisiblePass(true);
+                                      user.setVisibleConfirmPass(false);
 
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content:
-                                            Text('Adresse e-mail valide !')),
-                                  );
-                                }
-                              } else if (user.isTextFieldPasswordVisible) {
-                                if (_formKey.currentState!.validate()) {
-                                  user.setVisiblePass(false);
-                                  user.setVisibleConfirmPass(true);
-                                }
-                              } else if (user
-                                  .isTextFieldConfirmPasswordVisible) {
-                                if (user.Getpassword == user.confirmPassword) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Mot de passe valide !')),
-                                  );
-                                  Navigator.of(context).push(
+                                      CustomFlushbar.showFlushbar(
+                                          context, 'Adresse e-mail valide !',
+                                          backgroundColor:
+                                              constants.greenColor);
+                                    }
+                                  } else if (user.isTextFieldPasswordVisible) {
+                                    if (_formKey.currentState!.validate()) {
+                                      user.setVisiblePass(false);
+                                      user.setVisibleConfirmPass(true);
+                                    }
+                                  } else if (user
+                                      .isTextFieldConfirmPasswordVisible) {
+                                    if (user.Getpassword ==
+                                        user.GetConfirmPassword) {
+                                      user.TryLogin("mariem@gmail.com",
+                                          "123456", "123", context);
+// ------------------------------------------------------------------
+
+//-------------------------------------------------------------------
+
+                                      /* Navigator.of(context).push(
                                       MaterialPageRoute(builder: (context) {
                                     return MyConatinerView();
-                                  }));
-                                } else {
-                                  user.setVisibleMail(true);
-                                  user.setVisibleConfirmPass(false);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content:
-                                            Text('Mot de passe invalide !')),
-                                  );
-                                }
-                              }
-                            },
-                            text: 'Se Connecter',
-                            color: constants.ButtonColor,
-                          )),
+                                  }));*/
+                                    } else {
+                                      user.setVisibleMail(true);
+                                      user.setVisibleConfirmPass(false);
+                                      CustomFlushbar.showFlushbar(
+                                          context, 'Mot de passe invalide !',
+                                          backgroundColor:
+                                              constants.ButtonColor);
+                                    }
+                                  }
+                                },
+                                text: 'Se Connecter',
+                                color: constants.ButtonColor,
+                              )
+                            : CircularProgressIndicator(),
+                      ),
                     ],
                   );
                 }),

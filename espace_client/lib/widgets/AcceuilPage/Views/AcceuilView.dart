@@ -1,3 +1,4 @@
+import 'package:espace_client/utils/CustomToast.dart';
 import 'package:flutter/material.dart';
 import 'package:espace_client/Constants.dart' as constants;
 import 'package:espace_client/utils/MyDropDownButton.dart';
@@ -68,6 +69,12 @@ class _AcceuilViewState extends State<AcceuilView> {
                     ? Text('Pas de taches')
                     : Text('Vos Taches : '),
               ),
+              TextButton(
+                  onPressed: () {
+                    CustomFlushbar.showFlushbar(context, "Bonjour",
+                        backgroundColor: Color.fromARGB(255, 149, 215, 248));
+                  },
+                  child: Text("test"))
             ],
           )),
     );
