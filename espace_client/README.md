@@ -1,6 +1,6 @@
-# espace_client
+# Espace client GeoProd - Flutter
 
-A new Flutter project.
+Créer un espace client complet et convivial sur le site de Bysur, permettant aux utilisateurs de gérer efficacement leurs interactions avec l’entreprise.
 
 ## Aperçus 
 
