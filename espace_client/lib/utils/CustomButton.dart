@@ -1,13 +1,16 @@
+import 'package:espace_client/Constants.dart' as constants;
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
+  final bool isButtonEnabled;
   final String text;
   final Color color; // Ajoutez le type Color ici
   final double myPadding;
 
   CustomButton(
       {required this.onPressed,
+      required this.isButtonEnabled,
       required this.text,
       required this.color,
       required this.myPadding});
@@ -20,10 +23,15 @@ class CustomButton extends StatelessWidget {
         padding: EdgeInsets.all(myPadding),
         child: Text(text),
       ),
-      style: TextButton.styleFrom(
-        foregroundColor: Colors.white, // Utilisez la couleur ici
-        backgroundColor: color, // Utilisez la couleur ici
-      ),
+      style: (isButtonEnabled)
+          ? TextButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: color,
+            )
+          : TextButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: constants.MyDarkGreyColor,
+            ),
     );
   }
 }

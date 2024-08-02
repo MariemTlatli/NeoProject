@@ -131,7 +131,7 @@ class _MyHomeState extends State<MyHome> {
                                           child: Text(
                                     "${items[i].price} DT",
                                     style: TextStyle(
-                                        color: Colors.red,
+                                        color: const Color.fromARGB(255, 188, 87, 80),
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ))),

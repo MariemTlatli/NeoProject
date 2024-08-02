@@ -85,6 +85,7 @@ class PageHeader extends StatelessWidget {
                       child: Visibility(
                         visible: visibleButton,
                         child: CustomButton(
+                          isButtonEnabled: true,
                           myPadding: 2.0,
                           color: constants.ButtonColor,
                           text: textButton,

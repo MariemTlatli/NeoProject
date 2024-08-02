@@ -1,56 +1,75 @@
 import 'package:dio/dio.dart';
-import 'package:espace_client/utils/CustomToast.dart';
 import 'package:espace_client/widgets/LoginPage/Models/UserModel.dart';
 import 'package:espace_client/widgets/LoginPage/Service/LoginService.dart';
-import 'package:espace_client/widgets/LoginPage/core/Api/DioConsumer.dart';
+import 'package:espace_client/core/Api/DioConsumer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:espace_client/Constants.dart' as constants;
 
 class UserProvider extends ChangeNotifier {
+  // instance service
+  final loginService = LoginService(api: DioConsumer(dio: Dio()));
+  // variables loginFormView
   bool isTextFieldMailVisible = true;
   bool isTextFieldPasswordVisible = false;
   bool isTextFieldConfirmPasswordVisible = false;
+  bool obscureTextPass = true;
+  bool obscureTextConfirmPass = true;
 
-  User _user = User(email: '', password: '', confirmPassword: '');
-  // --------------------------------------
-  final loginService = LoginService(api: DioConsumer(dio: Dio()));
-  String _loginResult = '';
+  bool isButtonEnabled = true;
   bool _isLoading = false;
+  String userState = "";
 
-  TryLogin(email, password, apiKey, context) async {
-    _isLoading = true;
+  // instance du model user pour stocker ses coordonnées
+  User _user = User(
+      email: '',
+      password: '',
+      confirmPassword: '',
+      token: '',
+      id: '',
+      userName: '');
+
+// getter & setter
+  User get user => _user;
+  bool get isLoading => _isLoading;
+  void setUserName(v) {
+    _user.userName = v;
     notifyListeners();
-
-    final response = await loginService.Login(
-        email: "mariem@gmail.com", password: "123456", apiKey: "123");
-    print("eeeeeeeeeeeeeeee");
-
-    _isLoading = false;
-    notifyListeners();
-
-    response.fold(
-      (errMessage) {
-        notifyListeners();
-        print(errMessage);
-        CustomFlushbar.showFlushbar(context, errMessage,
-            backgroundColor: constants.ButtonColor);
-      },
-      (response) {
-        print(response);
-        notifyListeners();
-      },
-    );
   }
 
-// ----------------------------------------
-  User get user => _user;
+  void setUserState(v) {
+    userState = v;
+    notifyListeners();
+  }
 
-  String get loginResult => _loginResult;
-  bool get isLoading => _isLoading;
+  void setIsButtonEnabled(v) {
+    isButtonEnabled = v;
+    print(isButtonEnabled);
+    notifyListeners();
+  }
+
+  void setIsLoading(v) {
+    _isLoading = v;
+    notifyListeners();
+  }
+
+  void setobscureTextPass(v) {
+    obscureTextPass = v;
+    notifyListeners();
+  }
+
+  void setobscureTextConfirmPass(v) {
+    obscureTextConfirmPass = v;
+    notifyListeners();
+  }
+
+  void setUserId(v) {
+    _user.id = v;
+    notifyListeners();
+  }
 
   void setMail(v) {
     _user.email = v;
+    print(_user.email);
     notifyListeners();
   }
 
@@ -66,6 +85,11 @@ class UserProvider extends ChangeNotifier {
 
   void setVisibleMail(v) {
     isTextFieldMailVisible = v;
+    notifyListeners();
+  }
+
+  void setToken(v) {
+    _user.token = v;
     notifyListeners();
   }
 
@@ -89,5 +113,26 @@ class UserProvider extends ChangeNotifier {
 
   String get Getemail {
     return _user.email;
+  }
+
+  void resetUserData() {
+    _user = User(
+      email: '',
+      password: '',
+      confirmPassword: '',
+      token: '',
+      id: '',
+      userName: '',
+    );
+    isTextFieldMailVisible = true;
+    isTextFieldPasswordVisible = false;
+    isTextFieldConfirmPasswordVisible = false;
+    obscureTextPass = true;
+    obscureTextConfirmPass = true;
+    isButtonEnabled = true;
+    _isLoading = false;
+    userState = '';
+
+    notifyListeners();
   }
 }

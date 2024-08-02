@@ -9,8 +9,10 @@ class MyHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
+          radius: 60,
           backgroundImage: NetworkImage(constants.NetworkImageHeader),
         ),
         Text(text),

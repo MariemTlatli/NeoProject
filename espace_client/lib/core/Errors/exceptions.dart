@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:espace_client/widgets/LoginPage/core/Errors/ErrorModel.dart';
+import 'package:espace_client/core/Errors/ErrorModel.dart';
 
 class ServerException implements Exception {
   final ErrorModel errModel;
@@ -24,6 +24,11 @@ void handleDioExceptions(DioException e) {
     case DioExceptionType.unknown:
       throw ServerException(errModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.badResponse:
+      switch (e.response?.data) {
+        case "Pas du client avec cette adresse mail":
+          throw ServerException(
+              errModel: ErrorModel.fromJson(e.response!.data));
+      }
       switch (e.response?.statusCode) {
         case 400: // Bad request
           throw ServerException(

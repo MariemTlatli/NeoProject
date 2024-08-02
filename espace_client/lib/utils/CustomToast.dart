@@ -1,4 +1,3 @@
-// custom_flushbar.dart
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
 
@@ -27,6 +26,6 @@ class CustomFlushbar {
         ),
         textAlign: TextAlign.center,
       ),
-    ).show(context);
+    )..show(context);
   }
 }

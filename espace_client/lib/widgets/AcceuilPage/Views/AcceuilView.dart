@@ -1,7 +1,10 @@
 import 'package:espace_client/utils/CustomToast.dart';
+import 'package:espace_client/widgets/AcceuilPage/Controller/AcceuilController.dart';
+import 'package:espace_client/widgets/AcceuilPage/Provider/AcceuilProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:espace_client/Constants.dart' as constants;
 import 'package:espace_client/utils/MyDropDownButton.dart';
+import 'package:provider/provider.dart';
 
 class AcceuilView extends StatefulWidget {
   @override
@@ -10,10 +13,20 @@ class AcceuilView extends StatefulWidget {
 
 class _AcceuilViewState extends State<AcceuilView> {
   int nbTacheJour = 0;
+  late AcceuilController myAcceuilController;
+  @override
+  void initState() {
+    super.initState();
+    myAcceuilController = AcceuilController(context: context);
+    myAcceuilController.GetListPriorites(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final acceuilProvider = Provider.of<AcceuilProvider>(context, listen: true);
+
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
           color: constants.defaultBackgroundColor,
           child: Column(
@@ -34,7 +47,10 @@ class _AcceuilViewState extends State<AcceuilView> {
                 ),
               ]),
               MyDropDownButton(
-                myItems: constants.maListePriorite,
+                onChanged: (String? newValue) {},
+                myItems: acceuilProvider.listePriorites
+                    .map((priorite) => priorite.libelle)
+                    .toList(),
                 myHint: constants.myHint,
               ),
               Padding(
@@ -73,6 +89,9 @@ class _AcceuilViewState extends State<AcceuilView> {
                   onPressed: () {
                     CustomFlushbar.showFlushbar(context, "Bonjour",
                         backgroundColor: Color.fromARGB(255, 149, 215, 248));
+
+                    myAcceuilController = AcceuilController(context: context);
+                    myAcceuilController.GetMaListTaches(context);
                   },
                   child: Text("test"))
             ],

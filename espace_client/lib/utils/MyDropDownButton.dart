@@ -4,8 +4,13 @@ import 'package:espace_client/Constants.dart' as constants;
 class MyDropDownButton extends StatefulWidget {
   final List<String> myItems;
   final String myHint;
-
-  MyDropDownButton({super.key, required this.myItems, required this.myHint});
+  final ValueChanged<String?> onChanged;
+  MyDropDownButton({
+    super.key,
+    required this.myItems,
+    required this.myHint,
+    required this.onChanged,
+  });
 
   @override
   State<MyDropDownButton> createState() => _MyDropDownButtonState();
@@ -13,6 +18,12 @@ class MyDropDownButton extends StatefulWidget {
 
 class _MyDropDownButtonState extends State<MyDropDownButton> {
   String? selectedValue;
+  void setValues(String? newValue) {
+    setState(() {
+      selectedValue = newValue;
+    });
+    widget.onChanged(newValue);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +45,7 @@ class _MyDropDownButtonState extends State<MyDropDownButton> {
       ),
       child: DropdownButton<String>(
         value: selectedValue,
-        onChanged: (newValue) {
-          setState(() {
-            selectedValue = newValue;
-          });
-        },
+        onChanged: setValues,
         underline: Container(), // Supprime soulignement
         icon: Padding(
           padding: const EdgeInsets.all(4.0),

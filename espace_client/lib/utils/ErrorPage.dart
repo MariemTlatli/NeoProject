@@ -19,14 +19,14 @@ class ErrorPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   titre,
-                  style: TextStyle(color: constants.MyGreyColor, fontSize: 18),
+                  style: TextStyle(color: constants.MyGreyColor2, fontSize: 18),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   sousTitre,
-                  style: TextStyle(color: constants.MyGreyColor, fontSize: 18),
+                  style: TextStyle(color: constants.MyGreyColor2, fontSize: 18),
                 ),
               ),
               ElevatedButton.icon(

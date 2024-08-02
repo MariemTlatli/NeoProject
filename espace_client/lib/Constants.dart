@@ -1,4 +1,5 @@
 import 'package:espace_client/utils/Drawer.dart';
+import 'package:espace_client/widgets/LoginPage/Provider/UserProvider.dart';
 import 'package:espace_client/widgets/QuittancePage/Models/Contrat.dart';
 import 'package:flutter/material.dart';
 
@@ -9,24 +10,29 @@ var defaultPrimaryColor = Colors.blueAccent;
 var IconEmailColor = Colors.lightBlue;
 var ButtonColor = Colors.red;
 var greenColor = const Color.fromARGB(255, 42, 158, 102);
-Color MyGreyColor = const Color.fromARGB(255, 220, 219, 219);
+Color MyGreyColor = const Color.fromRGBO(246, 246, 246, 1.0);
+Color MyGreyColor2 = Color.fromARGB(255, 152, 151, 151);
 
-var defaultSecondryColor = Color(0xFF313042);
+Color MyDarkGreyColor = Color.fromARGB(255, 125, 124, 124);
+Color defaultSecondryColor = Color.fromRGBO(13, 11, 35, 1.0);
+
 // ------------------ logo de l'entreprise  ------------
-String MonLogo = "https://bysur.com/assets/images/logo.png";
+String MonLogo =
+    "https://scontent.ftun16-1.fna.fbcdn.net/v/t39.30808-6/271712710_111378994760534_6728790707634796097_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=JezJ7KB3R24Q7kNvgHCUEa_&_nc_ht=scontent.ftun16-1.fna&oh=00_AYB4ZCsIC06s6Ircznl0lBDlKF31aV1Pi-Eq168rMJpT0A&oe=66A6E954";
 // ------------------ Text sous le logo dans login
 String sousTextLogo = "Mon Espace Client";
 double fontSizeTitre = 28;
 // COLOR  defaultBackgroundColor
 // ----------------------- Header login
-String NetworkImageHeader =
-    'https://us.123rf.com/450wm/lightfieldstudios/lightfieldstudios1801/lightfieldstudios180102348/93684092-watch-and-turned-off-smartphone-on-wooden-table.jpg?ver=6';
+String NetworkImageHeader = "https://placehold.co/600x400";
 
-String headerText = "MyText";
+String headerText =
+    "Connectez-vous à votre espace pour gagner du temps. \n Gérez tous vos contrats et souscrivez de nouveau en quelques clics!";
 // ----------------------- container
 var appBarColor = defaultSecondryColor;
 var myAppBar = AppBar(
   backgroundColor: appBarColor,
+  iconTheme: IconThemeData(color: Colors.white),
   surfaceTintColor: Colors.white,
   title: Text(' '),
   /*actions: [
@@ -38,9 +44,9 @@ var myAppBar = AppBar(
   centerTitle: false,
 );
 // -------------------------------- PageHeader titre et boutton Text
-
+/*
 List<String> maListeTitres = [
-  'Bonjour Rihem',
+  'Bonjour',
   'mes contrats',
   'mes quittances',
   'mes attestations d\'assucrances',
@@ -49,7 +55,7 @@ List<String> maListeTitres = [
   'Mes sinistres',
   'Mes résiliations',
   'Déconnexion',
-];
+];*/
 List<String> maListeButtonsText = [
   'Souscrire un contrat',
   'Déclarer une sinistre',
@@ -72,11 +78,22 @@ List<String> maListeStatus = [
   'En cours',
   'Terminée',
 ];
-Map<String, MaterialColor> someMap = {
-  'Planifiée': Colors.red,
-  'En cours': Colors.blue,
-  'Terminée': Colors.green,
+Map<String, Color> someMap = {
+  'Terminée': Color.fromARGB(205, 228, 82, 72),
+  'En cours': const Color.fromARGB(255, 90, 178, 250),
+  'PLANIFIE': const Color.fromARGB(255, 109, 206, 113),
 };
+Map<String, Color> someMapText = {
+  'Terminée': Color.fromARGB(255, 179, 59, 50),
+  'En cours': Color.fromARGB(255, 0, 104, 189),
+  'PLANIFIE': Color.fromARGB(255, 50, 135, 53),
+};
+Map<String, String> someMapTextConvert = {
+  'TERMINE': 'Terminée',
+  'EN COURS': 'En cours',
+  'PLANIFIE': 'Planifiée',
+};
+
 List<String> maListeAnneesQuittances = [
   '2020',
   '2021',
