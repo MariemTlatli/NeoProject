@@ -19,9 +19,3 @@ Ce projet, **NeoProject - Espace Client**, est une application mobile développ�
 - **Adaptation des données JSON** : Conversion des réponses JSON en modèles adaptés à l'application.
 - **Gestion d'état avec Provider** : Utilisation du package Provider pour une gestion efficace de l'état de l'application.
 - **Utilisation de SharedPreferences** : Persistance des données, comme les tokens de session ou les préférences utilisateur.
-
-## Installation
-
-1. Clonez le dépôt :
-   ```bash
-   git clone https://github.com/MariemTlatli/NeoProject.git
